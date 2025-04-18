@@ -177,7 +177,7 @@
     }
 
     .banner {
-        background: url(images/bnr_bg_m.jpg);
+        background: url('../images/bnr_bg_m.jpg');
         background-size: cover;
         background-position: center;
         width: 100%;
