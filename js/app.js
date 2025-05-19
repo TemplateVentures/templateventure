@@ -2,84 +2,6 @@ $(document).ready(function () {
 
     window_width = $(window).width();
 
-    var init = function () {
-        var isMobile =
-            navigator.userAgent &&
-            navigator.userAgent.toLowerCase().indexOf("mobile") >= 0;
-        var isSmall = window.innerWidth < 1000;
-
-        var ps = new ParticleSlider({
-            ptlGap: isMobile || isSmall ? 3 : 2,
-            ptlSize: isMobile || isSmall ? 3 : 2,
-            width: 1e9,
-            height: 1e9,
-        });
-    };
-
-    var initParticleSlider = (function () {
-        var psScript = document.createElement("script");
-        psScript.addEventListener
-            ? psScript.addEventListener("load", init, false)
-            : (psScript.onload = init);
-        psScript.src = "./js/particle.js";
-        psScript.setAttribute("type", "text/javascript");
-        document.body.appendChild(psScript);
-    })(
-        window.addEventListener
-            ? window.addEventListener("load", initParticleSlider, false)
-            : (window.onload = initParticleSlider)
-    );
-
-
-    // Function to update background position and size
-    function updatenvBG() {
-        var activeLink = $(".nav_con_list a.link_active");
-        var bgElement = $(".nav_bg"); // Updated class for background
-
-        if (activeLink.length) {
-            var bgWidth = activeLink.outerWidth();
-            var bgLeft = activeLink.position().left;
-
-            // Apply changes to background
-            bgElement.css({
-                width: bgWidth + "px",
-                transform: "translateX(" + bgLeft + "px)",
-            });
-        }
-    }
-
-    // Initialize background on page load
-    updatenvBG();
-
-    // Hover effect to move background on hover
-    $(".nav_con_list a").hover(
-        function () {
-            var bgElement = $(".nav_bg");
-
-            // Get width & position of hovered link
-            var hoverWidth = $(this).outerWidth();
-            var hoverLeft = $(this).position().left;
-
-            // Apply changes to background
-            bgElement.css({
-                width: hoverWidth + "px",
-                transform: "translateX(" + hoverLeft + "px)",
-            });
-        },
-        function () {
-            // When mouse leaves, reset to active link
-            updatenvBG();
-        }
-    );
-
-    // Click event to update active link
-    $(".nav_con_list a").click(function () {
-        $(".nav_con_list a").removeClass("link_active");
-        $(this).addClass("link_active");
-
-        updatenvBG();
-    });
-
 
     // document.addEventListener("contextmenu", (e) => {
     //     e.preventDefault();
@@ -159,37 +81,33 @@ $(document).ready(function () {
             }
         }
 
-        updatenvBG();
         updateStaticData();
+        swapper();
 
     });
 
     // Swapper
 
     function swapper() {
-        //1001 - 1920 windows screen
-        // if (window_width > 1010) {
-        //     $('.header').insertAfter('nav');
-        // }
-        // // 1000 - 801 windows screen
-        // else if (window_width <= 1010 && window_width > 800) {
-        //     $('.header').insertAfter('nav');
-        // }
-        // // 800 - 601 windows screen
-        // else if (window_width <= 800 && window_width > 500) {
-        //     $('.header').insertAfter('nav');
-        // }
-        if (window_width <= 500) {
+        // 1001 - 1920 windows screen
+        if (window_width > 1010) {
+            $('.header').insertAfter('nav');
+        }
+        // 1000 - 801 windows screen
+        else if (window_width <= 1010 && window_width > 800) {
+            $('.header').insertAfter('nav');
+        }
+        // 800 - 601 windows screen
+        else if (window_width <= 800 && window_width > 500) {
+            $('.header').insertAfter('nav');
+        }
+        else if (window_width <= 500) {
             $('header').insertAfter('nav');
         }
         else {
             $('header').insertBefore('nav');
         }
     }
-    $(window).resize(function () {
-        swapper();
-    });
-
 
     swapper();
 
@@ -218,7 +136,6 @@ $(document).ready(function () {
 
 
     // Intersection Observer Setup
-    // document.addEventListener("DOMContentLoaded", function () {
     const counterSection = document.querySelector("#temp_mid"); // your section ID
     const observer = new IntersectionObserver(
         function (entries, observer) {
@@ -226,7 +143,7 @@ $(document).ready(function () {
                 if (entry.isIntersecting) {
                     incrementCounter($("#yrs_count"), 2);
                     incrementCounter($("#ctries_count"), 6);
-                    incrementCounter($("#indtrs_count"), 47);
+                    incrementCounter($("#indtrs_count"), 5);
                     incrementCounter($("#stisfd_count"), 100);
                     observer.unobserve(counterSection); // run only once
                 }
@@ -236,6 +153,39 @@ $(document).ready(function () {
     );
 
     observer.observe(counterSection);
-    // });
 
+    document.querySelectorAll('.a_btn').forEach(button => {
+        button.addEventListener('click', function (e) {
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            const rect = this.getBoundingClientRect();
+            ripple.style.left = `${e.clientX - rect.left}px`;
+            ripple.style.top = `${e.clientY - rect.top}px`;
+            ripple.style.position = 'absolute';
+            ripple.style.borderRadius = '50%';
+            ripple.style.transform = 'scale(0)';
+            ripple.style.animation = 'ripple 0.6s linear';
+            ripple.style.background = '#0c172416';
+            ripple.style.width = ripple.style.height = '200px';
+            this.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        });
+    });
+
+
+
+
+    document.addEventListener("click", function (e) {
+        const ripple = document.createElement("div");
+        ripple.className = "cursor-ripple";
+
+        ripple.style.left = `${e.clientX - 50}px`;
+        ripple.style.top = `${e.clientY - 50}px`;
+
+        document.body.appendChild(ripple);
+
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+    });
 });

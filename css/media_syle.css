@@ -40,6 +40,10 @@
 
 @media only screen and (max-width:1000px) {
 
+    .crr_ball {
+        display: none;
+    }
+
     .toggle_fixed_nav,
     .nav {
         top: 0 !important;
@@ -89,6 +93,7 @@
         width: 100%;
         height: 100%;
         padding: 0 20px;
+        gap: 20px;
     }
 
     .nav_bg {
@@ -125,12 +130,14 @@
 
 
     .main_con {
-        flex-direction: column;
+        flex-direction: column-reverse;
     }
 
     .main_info {
         max-width: 100%;
         text-align: center;
+        padding-bottom: 0;
+        z-index: 1;
     }
 
     .main_info a {
@@ -138,7 +145,16 @@
     }
 
     .main_bg {
-        display: none;
+        /* display: none; */
+        max-width: 600px;
+        margin: 0 auto;
+        bottom: 0;
+        position: absolute;
+        opacity: .3 !important;
+    }
+
+    .main_bg figure img {
+        min-height: auto;
     }
 
 
@@ -177,7 +193,7 @@
     }
 
     .banner {
-        background: url(/images/bnr_bg_m.jpg);
+        background: url(../images/bnr_bg_m.jpg);
         background-size: cover;
         background-position: center;
         width: 100%;
@@ -186,8 +202,13 @@
         margin: 0 !important;
     }
 
-    .van_con {
+    .banner::before {
         display: none;
+    }
+
+    .van_con {
+        visibility: hidden;
+        opacity: 0;
     }
 
     .bnr_info {
@@ -221,6 +242,27 @@
 
     .temp_btm_hldr3 {
         padding: 0 25px;
+    }
+
+    .temp_btm_info3 {
+        position: unset;
+        width: 100%;
+        max-width: 100%;
+        transform: none;
+        box-shadow: none;
+        background: none;
+        padding: 0;
+        border-radius: 0;
+        border-bottom: none;
+    }
+
+    .temp_contact_form {
+        padding-bottom: inherit;
+    }
+
+    .temp_proj figure {
+        max-width: 200px;
+        min-width: 200px;
     }
 }
 
@@ -280,6 +322,13 @@
     .temp_ftr_nav:nth-child(3) {
         width: 100%;
     }
+
+    .temp_btm_con3 {
+        padding-bottom: 90px;
+    }
+
+
+
 }
 
 @media only screen and (max-width:600px) {
@@ -345,6 +394,10 @@
         margin: 0 auto;
     }
 
+    .temp_contact_form {
+        padding: 0;
+    }
+
 }
 
 @media only screen and (max-width:420px) {
@@ -372,7 +425,22 @@
     }
 
     .temp_mid_box {
+        /* width: 100%; */
+        width: 46%;
+    }
+
+    .temp_mid_box h2 {
+        font-size: 30px;
+    }
+
+    .temp_form_btn a {
+        max-width: 100%;
         width: 100%;
+    }
+
+    .temp_form_btn .a_btn::before {
+        width: 100px;
+        height: 100px;
     }
 }
 
